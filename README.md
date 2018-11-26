@@ -96,7 +96,7 @@ def grad_desc(X, y, max_iterations, alpha, initial_weights=None):
         #Calculate an error vector based on these initial predictions and the correct labels
         error_vector = y - predictions
         #Calculate the gradient (transpose of X times error is the gradient)
-        gradient np.dot(X.transpose(),error_vector)
+        gradient = np.dot(X.transpose(),error_vector)
         #Update the weight vector take a step of alpha in direction of gradient 
         weights += alpha * gradient
     #Return finalized Weights
@@ -379,7 +379,7 @@ plt.plot(range(max_iterations), training_errors)
 
 
 
-    [<matplotlib.lines.Line2D at 0x1a260d1438>]
+    [<matplotlib.lines.Line2D at 0x1a1a143828>]
 
 
 

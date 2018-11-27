@@ -66,7 +66,11 @@ def grad_desc(X, y, max_iterations, alpha, initial_weights=None):
     #Create a for loop of iterations
         #Generate predictions using the current feature weights
         #Calculate an error vector based on these initial predictions and the correct labels
-        #Calculate the gradient (transpose of X times error is the gradient)
+        #Calculate the gradient 
+        #As we saw in the previous lab, calculating the gradient is often the most difficult task.
+        #Here, your are provided with the closed form solution for the gradient of the log-loss function derived from MLE
+        #For more details on the derivation, see the additional resources section below.
+        gradient = np.dot(X.transpose(),error_vector) 
         #Update the weight vector take a step of alpha in direction of gradient 
     #Return finalized Weights
 ```
@@ -115,6 +119,10 @@ Update the gradient descent algorithm to also return the prediction error after 
 ```python
 # Your code here
 ```
+
+## Additional Resources
+
+If you want to see more of the mathematics behind the gradient derivation above, check out section 4.4.1 from the Elements of Statistical Learning which can be found here: https://web.stanford.edu/~hastie/ElemStatLearn//.
 
 ## Summary
 

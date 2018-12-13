@@ -88,6 +88,7 @@ def grad_desc(X, y, max_iterations, alpha, initial_weights=None):
     """Be sure to set default behavior for the initial_weights parameter."""
     if initial_weights == None:
         initial_weights = np.ones((X.shape[1],1)).flatten()
+    weights_col= pd.DataFrame(initial_weights)
     weights = initial_weights
     #Create a for loop of iterations
     for iteration in range(max_iterations):
@@ -102,8 +103,9 @@ def grad_desc(X, y, max_iterations, alpha, initial_weights=None):
         gradient = np.dot(X.transpose(),error_vector)
         #Update the weight vector take a step of alpha in direction of gradient 
         weights += alpha * gradient
+        weights_col = pd.concat([weights_col, pd.DataFrame(weights)], axis=1)
     #Return finalized Weights
-    return weights
+    return weights, weights_col
 ```
 
 ## Running Your Algorithm
@@ -252,26 +254,32 @@ X.head()
 
 
 ```python
-weights = grad_desc(X, y, 50000, 0.001)
+weights, weight_col = grad_desc(X, y, 10000, 0.001)
 ```
 
 
 ```python
-weights
+weight_col.columns = np.arange(len(weight_col.columns))
 ```
 
 
+```python
+plt.figure(figsize=(16, 12))
+
+for (i, j) in enumerate(weights):
+    plt.subplot(3, 5, i + 1)
+    plt.title(list(X)[i], size='medium')
+    plt.plot(weight_col.iloc[i].T)
+    plt.axis('tight')
+```
 
 
-    array([ 0.8122867 , -1.61296293,  2.61777735, -1.96890616, -1.50963664,
-            0.05698231,  1.15221375,  4.42107696, -0.83034101, -2.74655062,
-            1.45579366, -3.11550418, -2.19128237])
+![png](index_files/index_14_0.png)
 
 
+## scikit-learn
 
-## sci-kit learn
-
-For comparison, import sci-kit learn's standard LogisticRegression function. Initialize a regression object with **no intercept** and with **C=1e16** or another very high number. The reason is as follows: our implementation has not used an intercept, and we have not performed any regularization such as Lasso or Ridge (sci-kit learn uses l2 by default). The high value of C will essentially negate this.
+For comparison, import scikit-learn's standard LogisticRegression function. Initialize a regression object with **no intercept** and with **C=1e16** or another very high number. The reason is as follows: our implementation has not used an intercept, and we have not performed any regularization such as Lasso or Ridge (sci-kit learn uses l2 by default). The high value of C will essentially negate this.
 
 After initializing a regression object, fit it to X and y.
 
@@ -332,9 +340,9 @@ weights
 
 
 
-    array([ 0.8122867 , -1.61296293,  2.61777735, -1.96890616, -1.50963664,
-            0.05698231,  1.15221375,  4.42107696, -0.83034101, -2.74655062,
-            1.45579366, -3.11550418, -2.19128237])
+    array([ 0.7802778 , -1.601665  ,  2.61772008, -1.95194946, -1.39350985,
+            0.05818755,  1.15984037,  4.36925075, -0.83136019, -2.75080939,
+            1.45778904, -3.10796257, -2.19158082])
 
 
 
@@ -382,12 +390,12 @@ plt.plot(range(max_iterations), training_errors)
 
 
 
-    [<matplotlib.lines.Line2D at 0x1a1a143828>]
+    [<matplotlib.lines.Line2D at 0x11f3eec18>]
 
 
 
 
-![png](index_files/index_23_2.png)
+![png](index_files/index_24_2.png)
 
 
 ## Additional Resources

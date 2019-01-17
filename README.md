@@ -1,5 +1,5 @@
 
-## Coding Logistic Regression From Scratch
+# Coding Logistic Regression From Scratch - Lab
 
 ## Introduction
 

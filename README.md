@@ -3,7 +3,7 @@
 
 ## Introduction
 
-In this lab, you'll practice your ability to translate mathematical algorithms into python functions. This will deepen and solidify your understanding of the logistic regression!
+In this lab, you'll practice your ability to translate mathematical algorithms into python functions. This will deepen and solidify your understanding of logistic regression!
 
 ## Objectives
 
@@ -12,7 +12,7 @@ You will be able to:
 
 ## Overview
 
-Recall that the logistic regression algorithm builds upon the intuition from linear regression. In logistic regression, you start by taking the input data, X and multiplying it by a vector of weights for each of the individual features, which produces an output y. Afterwards you'll work on using an iterative approach via gradient descent to tune these weights.
+Recall that the logistic regression algorithm builds upon the intuition from linear regression. In logistic regression, you start by taking the input data, X and multiplying it by a vector of weights for each of the individual features, which produces an output y. Afterward, you'll work on using an iterative approach via gradient descent to tune these weights.
 
 ## Linear Regression Setup
 
@@ -331,9 +331,9 @@ for (i, j) in enumerate(weights):
 ![png](index_files/index_19_0.png)
 
 
-## sci-kit learn
+## scikit-learn
 
-For comparison, import sci-kit learn's standard LogisticRegression function. Initialize a regression object with **no intercept** and with **C=1e16** or another very high number. The reason is as follows: our implementation has not used an intercept, and you have not performed any regularization such as Lasso or Ridge (sci-kit learn uses l2 by default). The high value of C will essentially negate this.
+For comparison, import scikit-learn's standard LogisticRegression function. Initialize a regression object with **no intercept** and with **C=1e16** or another very high number. The reason is as follows: our implementation has not used an intercept, and you have not performed any regularization such as Lasso or Ridge (scikit-learn uses l2 by default). The high value of C will essentially negate this.
 
 After initializing a regression object, fit it to X and y.
 

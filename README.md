@@ -8,7 +8,7 @@ In this lab, you'll practice your ability to translate mathematical algorithms i
 ## Objectives
 
 You will be able to:
-* Understand and implement logistic regression
+- Understand and implement logistic regression
 
 ## Overview
 

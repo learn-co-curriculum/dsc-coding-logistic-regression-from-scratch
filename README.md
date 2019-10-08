@@ -85,7 +85,7 @@ plt.title('The Sigmoid Function')
 
 
 
-    Text(0.5,1,'The Sigmoid Function')
+    Text(0.5, 1.0, 'The Sigmoid Function')
 
 
 
@@ -352,13 +352,18 @@ logreg = LogisticRegression(fit_intercept=False, C=1e16, random_state=2)
 logreg.fit(X, y)
 ```
 
+    //anaconda3/envs/learn-env/lib/python3.6/site-packages/sklearn/linear_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+      FutureWarning)
 
 
 
-    LogisticRegression(C=1e+16, class_weight=None, dual=False,
-              fit_intercept=False, intercept_scaling=1, max_iter=100,
-              multi_class='ovr', n_jobs=1, penalty='l2', random_state=2,
-              solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
+
+
+    LogisticRegression(C=1e+16, class_weight=None, dual=False, fit_intercept=False,
+                       intercept_scaling=1, l1_ratio=None, max_iter=100,
+                       multi_class='warn', n_jobs=None, penalty='l2',
+                       random_state=2, solver='warn', tol=0.0001, verbose=0,
+                       warm_start=False)
 
 
 
@@ -389,7 +394,7 @@ print("Our manual regression weights:", weights)
 
 ## Level - Up
 
-Update the gradient descent algorithm to also return the prediction error after each iteration. Then rerun the algorithm and create a graph displaying the prediction errors versus the iteration number.
+Update the gradient descent algorithm to also return the cost after each iteration. Then rerun the algorithm and create a graph displaying the cost versus the iteration number.
 
 
 ```python
@@ -408,7 +413,7 @@ def grad_desc(X, y, max_iterations, alpha, initial_weights=None):
     if initial_weights == None:
         initial_weights = np.ones((X.shape[1],1)).flatten()
     weights = initial_weights
-    training_errors = []
+    costs = []
     #Create a for loop of iterations
     for iteration in range(max_iterations):
         #Generate predictions using the current feature weights
@@ -419,13 +424,15 @@ def grad_desc(X, y, max_iterations, alpha, initial_weights=None):
         gradient = np.dot(X.transpose(),error_vector)
         #Update the weight vector take a step of alpha in direction of gradient 
         weights += alpha * gradient
-        training_errors.append(np.abs(error_vector).sum())
+        #Calculate the cost
+        cost = ((-y * np.log(predictions))-((1-y)* np.log(1-predictions))).mean()
+        costs.append(cost)
     #Return finalized Weights
-    return weights, training_errors
+    return weights, costs
 max_iterations = 50000
-weights, training_errors = grad_desc(X, y, max_iterations, 0.001)
+weights, costs = grad_desc(X, y, max_iterations, 0.001)
 print('Coefficient weights:\n', weights)
-plt.plot(range(max_iterations), training_errors)
+plt.plot(range(max_iterations), costs)
 ```
 
     Coefficient weights:
@@ -437,7 +444,7 @@ plt.plot(range(max_iterations), training_errors)
 
 
 
-    [<matplotlib.lines.Line2D at 0x117cea7f0>]
+    [<matplotlib.lines.Line2D at 0x11c971588>]
 
 
 
